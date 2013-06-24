@@ -115,7 +115,7 @@ class PDFMerger
 		}
 		else
 		{
-			if($fpdi->Output($outputpath, $mode))
+			if($fpdi->Output($outputpath, $mode) == '')
 			{
 				return true;
 			}
