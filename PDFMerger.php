@@ -72,6 +72,8 @@ class PDFMerger
 		if(!isset($this->_files) || !is_array($this->_files)): throw new exception("No PDFs to merge."); endif;
 		
 		$fpdi = new FPDI;
+        $fpdi->setPrintHeader(FALSE);
+        $fpdi->setPrintFooter(FALSE);
 		
 		//merger operations
 		foreach($this->_files as $file)
@@ -88,8 +90,9 @@ class PDFMerger
 				{
 					$template 	= $fpdi->importPage($i);
 					$size 		= $fpdi->getTemplateSize($template);
-					
-					$fpdi->AddPage('P', array($size['w'], $size['h']));
+					 $orientation = ($size['w'] <= $size['h']) ? 'P' : 'L' ;
+                    
+                    $fpdi->AddPage($orientation, array($size['w'], $size['h']));
 					$fpdi->useTemplate($template);
 				}
 			}
@@ -99,8 +102,9 @@ class PDFMerger
 				{
 					if(!$template = $fpdi->importPage($page)): throw new exception("Could not load page '$page' in PDF '$filename'. Check that the page exists."); endif;
 					$size = $fpdi->getTemplateSize($template);
-					
-					$fpdi->AddPage('P', array($size['w'], $size['h']));
+					$orientation = ($size['w'] <= $size['h']) ? 'P' : 'L' ;
+                    
+                    $fpdi->AddPage($orientation, array($size['w'], $size['h']));
 					$fpdi->useTemplate($template);
 				}
 			}	
