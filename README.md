@@ -13,7 +13,7 @@ I have made some changes in original codes to make PHPMerger compatible for PHP 
 ```php
 include 'PDFMerger.php';
 
-$pdf = new PDFMerger;
+$pdf = new PDFMerger; // or use $pdf = new \PDFMerger; for Laravel
 
 $pdf->addPDF('samplepdfs/one.pdf', '1, 3, 4');
 $pdf->addPDF('samplepdfs/two.pdf', '1-2');
