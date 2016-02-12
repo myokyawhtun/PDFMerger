@@ -14,7 +14,7 @@ I have made some changes in original codes to make PHPMerger compatible for PHP 
 PDFMerger is available via [Composer/Packagist](https://packagist.org/packages/myokyawhtun/pdfmerger), add this line to your `composer.json` file:
 
 ```json
-"myokyawhtun/pdfmerger": "*"
+"myokyawhtun/pdfmerger": "dev-master"
 ```
 
 or
