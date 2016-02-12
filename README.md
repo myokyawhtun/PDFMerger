@@ -9,6 +9,20 @@ PDFMerger created by Jarrod Nettles December 2009 jarrod@squarecrow.com
 
 I have made some changes in original codes to make PHPMerger compatible for PHP 5
 
+### Composer
+
+PDFMerger is available via [Composer/Packagist](https://packagist.org/packages/myokyawhtun/pdfmerger), add this line to your `composer.json` file:
+
+```json
+"myokyawhtun/pdfmerger": "*"
+```
+
+or
+
+```sh
+composer require myokyawhtun/pdfmerger
+```
+
 ### Example Usage
 ```php
 include 'PDFMerger.php';
