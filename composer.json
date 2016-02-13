@@ -3,5 +3,9 @@
     "description": "PDFMerger for PHP (PHP5 Compatible) by Jarrod Nettles",
     "require":{
     	"php": ">=5.2.0"
+    },
+    "autoload": {
+        "files": ["PDFMerger.php"]
     }
 }
+
