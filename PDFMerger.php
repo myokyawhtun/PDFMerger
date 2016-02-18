@@ -13,8 +13,8 @@
  * If you put pages 12-14 before 1-5 then 12-15 will be placed first in the output.
  * 
  * 
- * Uses FPDI 1.3.1 from Setasign
- * Uses FPDF 1.6 by Olivier Plathey with FPDF_TPL extension 1.1.3 by Setasign
+ * Uses FPDI 1.4.4 from Setasign with a patch to support own PdfParserException
+ * Uses FPDF 1.7 by Olivier Plathey with FPDF_TPL extension 1.2.3 by Setasign
  * 
  * Both of these packages are free and open source software, bundled with this class for ease of use. 
  * They are not modified in any way. PDFMerger has all the limitations of the FPDI package - essentially, it cannot import dynamic content
