@@ -7,9 +7,9 @@
 </head>
 <body>
 <h1>FPDF</h1>
-<code>FPDF([<b>string</b> orientation [, <b>string</b> unit [, <b>mixed</b> format]]])</code>
+<code>FPDF([<b>string</b> orientation [, <b>string</b> unit [, <b>mixed</b> size]]])</code>
 <h2>Description</h2>
-This is the class constructor. It allows to set up the page format, the orientation and the
+This is the class constructor. It allows to set up the page size, the orientation and the
 unit of measure used in all methods (except for font sizes).
 <h2>Parameters</h2>
 <dl class="param">
@@ -37,9 +37,9 @@ is a very common unit in typography; font sizes are expressed in that unit.
 <br>
 Default value is <code>mm</code>.
 </dd>
-<dt><code>format</code></dt>
+<dt><code>size</code></dt>
 <dd>
-The format used for pages. It can be either one of the following values (case insensitive):
+The size used for pages. It can be either one of the following values (case insensitive):
 <ul>
 <li><code>A3</code></li>
 <li><code>A4</code></li>
@@ -53,9 +53,9 @@ Default value is <code>A4</code>.
 </dd>
 </dl>
 <h2>Example</h2>
-Example with a custom 100x150 mm page format:
+Example with a custom 100x150 mm page size:
 <div class="doc-source">
-<pre><code>$pdf = new FPDF('P', 'mm', array(100,150));</code></pre>
+<pre><code>$pdf = new FPDF('P','mm',array(100,150));</code></pre>
 </div>
 <hr style="margin-top:1.5em">
 <div style="text-align:center"><a href="index.htm">Index</a></div>

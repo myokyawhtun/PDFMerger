@@ -12,7 +12,7 @@ Let's start with the classic example:
 <pre><code>&lt;?php
 <span class="kw">require(</span><span class="str">'fpdf.php'</span><span class="kw">);
 
-</span>$pdf<span class="kw">=new </span>FPDF<span class="kw">();
+</span>$pdf <span class="kw">= new </span>FPDF<span class="kw">();
 </span>$pdf<span class="kw">-&gt;</span>AddPage<span class="kw">();
 </span>$pdf<span class="kw">-&gt;</span>SetFont<span class="kw">(</span><span class="str">'Arial'</span><span class="kw">,</span><span class="str">'B'</span><span class="kw">,</span>16<span class="kw">);
 </span>$pdf<span class="kw">-&gt;</span>Cell<span class="kw">(</span>40<span class="kw">,</span>10<span class="kw">,</span><span class="str">'Hello World!'</span><span class="kw">);
@@ -24,28 +24,27 @@ After including the library file, we create an FPDF object.
 The <a href='../doc/fpdf.htm'>FPDF()</a> constructor is used here with the default values: pages are in A4 portrait and
 the unit of measure is millimeter. It could have been specified explicitly with:
 <div class="source">
-<pre><code>$pdf<span class="kw">=new </span>FPDF<span class="kw">(</span><span class="str">'P'</span><span class="kw">,</span><span class="str">'mm'</span><span class="kw">,</span><span class="str">'A4'</span><span class="kw">);
+<pre><code>$pdf <span class="kw">= new </span>FPDF<span class="kw">(</span><span class="str">'P'</span><span class="kw">,</span><span class="str">'mm'</span><span class="kw">,</span><span class="str">'A4'</span><span class="kw">);
 </span></code></pre>
 </div>
-It is possible to use landscape (<code>L</code>), other page formats (such as <code>Letter</code> and
-<code>Legal</code>) and units of measure (<code>pt</code>, <code>cm</code>, <code>in</code>).
+It's possible to use landscape (<code>L</code>), other page sizes (such as <code>Letter</code> and
+<code>Legal</code>) and units (<code>pt</code>, <code>cm</code>, <code>in</code>).
 <br>
 <br>
-There is no page for the moment, so we have to add one with <a href='../doc/addpage.htm'>AddPage()</a>. The origin
-is at the upper-left corner and the current position is by default placed at 1 cm from the
+There's no page at the moment, so we have to add one with <a href='../doc/addpage.htm'>AddPage()</a>. The origin
+is at the upper-left corner and the current position is by default set at 1 cm from the
 borders; the margins can be changed with <a href='../doc/setmargins.htm'>SetMargins()</a>.
 <br>
 <br>
-Before we can print text, it is mandatory to select a font with <a href='../doc/setfont.htm'>SetFont()</a>, otherwise the
+Before we can print text, it's mandatory to select a font with <a href='../doc/setfont.htm'>SetFont()</a>, otherwise the
 document would be invalid. We choose Arial bold 16:
 <div class="source">
 <pre><code>$pdf<span class="kw">-&gt;</span>SetFont<span class="kw">(</span><span class="str">'Arial'</span><span class="kw">,</span><span class="str">'B'</span><span class="kw">,</span>16<span class="kw">);
 </span></code></pre>
 </div>
 We could have specified italics with I, underlined with U or a regular font with an empty string
-(or any combination). Note that the font size is given in points, not millimeters (or another
-user unit); it is the only exception. The other standard fonts are Times, Courier, Symbol and
-ZapfDingbats.
+(or any combination). Note that the font size is given in points, not millimeters (or another user
+unit); it's the only exception. The other standard fonts are Times, Courier, Symbol and ZapfDingbats.
 <br>
 <br>
 We can now print a cell with <a href='../doc/cell.htm'>Cell()</a>. A cell is a rectangular area, possibly framed,

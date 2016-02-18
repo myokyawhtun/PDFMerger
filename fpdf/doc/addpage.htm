@@ -7,7 +7,7 @@
 </head>
 <body>
 <h1>AddPage</h1>
-<code>AddPage([<b>string</b> orientation ,[ <b>mixed</b> format]])</code>
+<code>AddPage([<b>string</b> orientation [, <b>mixed</b> size]])</code>
 <h2>Description</h2>
 Adds a new page to the document. If a page is already present, the Footer() method is called
 first to output the footer. Then the page is added, the current position set to the top-left
@@ -30,9 +30,9 @@ Page orientation. Possible values are (case insensitive):
 </ul>
 The default value is the one passed to the constructor.
 </dd>
-<dt><code>format</code></dt>
+<dt><code>size</code></dt>
 <dd>
-Page format. It can be either one of the following values (case insensitive):
+Page size. It can be either one of the following values (case insensitive):
 <ul>
 <li><code>A3</code></li>
 <li><code>A4</code></li>

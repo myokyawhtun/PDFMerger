@@ -19,13 +19,13 @@ The method is overriden in an inherited class in order to obtain a 3 column layo
 <div class="doc-source">
 <pre><code>class PDF extends FPDF
 {
-var $col=0;
+var $col = 0;
 
 function SetCol($col)
 {
-    //Move position to a column
-    $this-&gt;col=$col;
-    $x=10+$col*65;
+    // Move position to a column
+    $this-&gt;col = $col;
+    $x = 10+$col*65;
     $this-&gt;SetLeftMargin($x);
     $this-&gt;SetX($x);
 }
@@ -34,21 +34,21 @@ function AcceptPageBreak()
 {
     if($this-&gt;col&lt;2)
     {
-        //Go to next column
+        // Go to next column
         $this-&gt;SetCol($this-&gt;col+1);
         $this-&gt;SetY(10);
         return false;
     }
     else
     {
-        //Go back to first column and issue page break
+        // Go back to first column and issue page break
         $this-&gt;SetCol(0);
         return true;
     }
 }
 }
 
-$pdf=new PDF();
+$pdf = new PDF();
 $pdf-&gt;AddPage();
 $pdf-&gt;SetFont('Arial','',12);
 for($i=1;$i&lt;=300;$i++)

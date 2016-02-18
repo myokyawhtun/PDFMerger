@@ -11,9 +11,9 @@
 <h2>Description</h2>
 Puts an image. The size it will take on the page can be specified in different ways:
 <ul>
-<li>explicit width and height (expressed in user unit)</li>
+<li>explicit width and height (expressed in user unit or dpi)</li>
 <li>one explicit dimension, the other being calculated automatically in order to keep the original proportions</li>
-<li>no explicit dimension, in which case the image is put at 72 dpi</li>
+<li>no explicit dimension, in which case the image is put at 96 dpi</li>
 </ul>
 Supported formats are JPEG, PNG and GIF. The GD extension is required for GIF.
 <br>
@@ -30,16 +30,12 @@ For PNGs, are allowed:
 <li>indexed colors</li>
 <li>true colors (24 bits)</li>
 </ul>
-but are not supported:
-<ul>
-<li>Interlacing</li>
-<li>Alpha channel</li>
-</ul>
-For GIFs: in case of an animated GIF, only the first frame is used.<br>
+For GIFs: in case of an animated GIF, only the first frame is displayed.<br>
 <br>
-If a transparent color is defined, it is taken into account.<br>
+Transparency is supported.<br>
 <br>
 The format can be specified explicitly or inferred from the file extension.<br>
+<br>
 It is possible to put a link on the image.<br>
 <br>
 Remark: if an image is used several times, only one copy is embedded in the file.
@@ -62,11 +58,21 @@ and, after the call, the current ordinate is moved to the bottom of the image.
 </dd>
 <dt><code>w</code></dt>
 <dd>
-Width of the image in the page. If not specified or equal to zero, it is automatically calculated.
+Width of the image in the page. There are three cases:
+<ul>
+<li>If the value is positive, it represents the width in user unit</li>
+<li>If the value is negative, the absolute value represents the horizontal resolution in dpi</li>
+<li>If the value is not specified or equal to zero, it is automatically calculated</li>
+</ul>
 </dd>
 <dt><code>h</code></dt>
 <dd>
-Height of the image in the page. If not specified or equal to zero, it is automatically calculated.
+Height of the image in the page. There are three cases:
+<ul>
+<li>If the value is positive, it represents the height in user unit</li>
+<li>If the value is negative, the absolute value represents the vertical resolution in dpi</li>
+<li>If the value is not specified or equal to zero, it is automatically calculated</li>
+</ul>
 </dd>
 <dt><code>type</code></dt>
 <dd>
@@ -78,6 +84,13 @@ If not specified, the type is inferred from the file extension.
 URL or identifier returned by AddLink().
 </dd>
 </dl>
+<h2>Example</h2>
+<div class="doc-source">
+<pre><code>// Insert a logo in the top-left corner at 300 dpi
+$pdf-&gt;Image('logo.png',10,10,-300);
+// Insert a dynamic image from a URL
+$pdf-&gt;Image('http://chart.googleapis.com/chart?cht=p3&amp;chd=t:60,40&amp;chs=250x100&amp;chl=Hello|World',60,30,90,0,'PNG');</code></pre>
+</div>
 <h2>See also</h2>
 <a href="addlink.htm">AddLink()</a>.
 <hr style="margin-top:1.5em">

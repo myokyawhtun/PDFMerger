@@ -9,11 +9,11 @@
 <h1>AddFont</h1>
 <code>AddFont(<b>string</b> family [, <b>string</b> style [, <b>string</b> file]])</code>
 <h2>Description</h2>
-Imports a TrueType or Type1 font and makes it available. It is necessary to generate a font
-definition file first with the makefont.php utility.
+Imports a TrueType, OpenType or Type1 font and makes it available. It is necessary to generate a font
+definition file first with the MakeFont utility.
 <br>
 The definition file (and the font file itself when embedding) must be present in the font directory.
-If it is not found, the error "Could not include font definition file" is generated.
+If it is not found, the error "Could not include font definition file" is raised.
 <h2>Parameters</h2>
 <dl class="param">
 <dt><code>family</code></dt>

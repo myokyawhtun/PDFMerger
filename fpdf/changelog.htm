@@ -2,17 +2,35 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>History</title>
+<title>Changelog</title>
 <link type="text/css" rel="stylesheet" href="fpdf.css">
 <style type="text/css">
-dd {margin-top:1em; margin-bottom:1em}
+dd {margin:1em 0 1em 1em}
 </style>
 </head>
 <body>
-<h1>History</h1>
+<h1>Changelog</h1>
 <dl>
+<dt><strong>v1.7</strong> (2011-06-18)</dt>
+<dd>
+- The MakeFont utility has been completely rewritten and doesn't depend on ttf2pt1 anymore.<br>
+- Alpha channel is now supported for PNGs.<br>
+- When inserting an image, it's now possible to specify its resolution.<br>
+- Default resolution for images was increased from 72 to 96 dpi.<br>
+- When inserting a GIF image, no temporary file is used anymore if the PHP version is 5.1 or higher.<br>
+- When output buffering is enabled and the PDF is about to be sent, the buffer is now cleared if it contains only a UTF-8 BOM and/or whitespace (instead of throwing an error).<br>
+- Symbol and ZapfDingbats fonts now support underline style.<br>
+- Custom page sizes are now checked to ensure that width is smaller than height.<br>
+- Standard font files were changed to use the same format as user fonts.<br>
+- A bug in the embedding of Type1 fonts was fixed.<br>
+- A bug related to SetDisplayMode() and the current locale was fixed.<br>
+- A display issue occurring with the Adobe Reader X plug-in was fixed.<br>
+- An issue related to transparency with some versions of Adobe Reader was fixed.<br>
+- The Content-Length header was removed because it caused an issue when the HTTP server applies compression.<br>
+</dd>
 <dt><strong>v1.6</strong> (2008-08-03)</dt>
 <dd>
+- PHP 4.3.10 or higher is now required.<br>
 - GIF image support.<br>
 - Images can now trigger page breaks.<br>
 - Possibility to have different page formats in a single document.<br>
@@ -24,7 +42,7 @@ dd {margin-top:1em; margin-bottom:1em}
 </dd>
 <dt><strong>v1.53</strong> (2004-12-31)</dt>
 <dd>
-- When the font subdirectory is in the same directory as fpdf.php, it is no longer necessary to define the FPDF_FONTPATH constant.<br>
+- When the font subdirectory is in the same directory as fpdf.php, it's no longer necessary to define the FPDF_FONTPATH constant.<br>
 - The array $HTTP_SERVER_VARS is no longer used. It could cause trouble on PHP5-based configurations with the register_long_arrays option disabled.<br>
 - Fixed a problem related to Type1 font embedding which caused trouble to some PDF processors.<br>
 - The file name sent to the browser could not contain a space character.<br>
@@ -48,7 +66,7 @@ dd {margin-top:1em; margin-bottom:1em}
 - Type1 font support.<br>
 - Added Baltic encoding.<br>
 - The class now works internally in points with the origin at the bottom in order to avoid two bugs occurring with Acrobat 5 :<br>&nbsp;&nbsp;* The line thickness was too large when printed under Windows 98 SE and ME.<br>&nbsp;&nbsp;* TrueType fonts didn't appear immediately inside the plug-in (a substitution font was used), one had to cause a window refresh to make them show up.<br>
-- It is no longer necessary to set the decimal separator as dot to produce valid documents.<br>
+- It's no longer necessary to set the decimal separator as dot to produce valid documents.<br>
 - The clickable area in a cell was always on the left independently from the text alignment.<br>
 - JPEG images in CMYK mode appeared in inverted colors.<br>
 - Transparent PNG images in grayscale or true color mode were incorrectly handled.<br>
