@@ -1,8 +1,8 @@
 <?php
 //
-//  FPDI - Version 1.3.1
+//  FPDI - Version 1.4.4
 //
-//    Copyright 2004-2009 Setasign - Jan Slabon
+//    Copyright 2004-2013 Setasign - Jan Slabon
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -23,7 +23,7 @@ class FilterASCII85_FPDI extends FilterASCII85 {
 
     var $fpdi;
     
-    function FPDI_FilterASCII85(&$fpdi) {
+    function FilterASCII85_FPDI(&$fpdi) {
         $this->fpdi =& $fpdi;
     }
 
