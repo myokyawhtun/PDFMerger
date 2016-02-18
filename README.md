@@ -2,8 +2,8 @@
 
 PDFMerger created by Jarrod Nettles December 2009 jarrod@squarecrow.com
 
-- Uses FPDI 1.3.1 from Setasign
-- Uses FPDF 1.6 by Olivier Plathey with FPDF_TPL extension 1.1.3 by Setasign
+- Uses FPDI 1.4.4 from Setasign with a patch to support own PdfParserException
+- Uses FPDF 1.7 by Olivier Plathey with FPDF_TPL extension 1.2.3 by Setasign
 
 ## PHP 5 Compatible
 
