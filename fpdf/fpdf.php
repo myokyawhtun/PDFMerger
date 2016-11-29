@@ -1069,9 +1069,12 @@ function _dochecks()
 	//Check mbstring overloading
 	if(ini_get('mbstring.func_overload') & 2)
 		$this->Error('mbstring overloading must be disabled');
-	//Disable runtime magic quotes
-	if(get_magic_quotes_runtime())
-		@set_magic_quotes_runtime(0);
+	if (version_compare(phpversion(), '5.4.0', '<')) {
+		//Disable runtime magic quotes
+		if(get_magic_quotes_runtime()) {
+			@set_magic_quotes_runtime(0);
+		}
+	}
 }
 
 function _getpageformat($format)

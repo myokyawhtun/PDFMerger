@@ -300,8 +300,11 @@ function CheckTTF($file)
 function MakeFont($fontfile, $afmfile, $enc='cp1252', $patch=array(), $type='TrueType')
 {
 	//Generate a font definition file
-	if(get_magic_quotes_runtime())
-		@set_magic_quotes_runtime(0);
+	if (version_compare(phpversion(), '5.4.0', '<')) {
+		if(get_magic_quotes_runtime()) {
+			@set_magic_quotes_runtime(0);
+		}
+	}
 	ini_set('auto_detect_line_endings','1');
 	if($enc)
 	{
