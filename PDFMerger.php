@@ -25,6 +25,11 @@ class PDFMerger
 {
 	private $_files;	//['form.pdf']  ["1,2,4, 5-19"]
 	private $_fpdi;
+    private $_author;
+    private $_creator;
+    private $_subject;
+    private $_title;
+    private $_keywords;
 	
 	/**
 	 * Merge PDFs.
@@ -35,6 +40,28 @@ class PDFMerger
 		require_once('fpdf/fpdf.php');
 		require_once('fpdi/fpdi.php');
 	}
+    
+    
+    public function setAuthor($author) {
+        $this->_author = $author;
+    }
+    
+    public function setCreator($creator) {
+        $this->_creator = $creator;
+    }
+    
+    public function setSubject($subject) {
+        $this->_subject = $subject;
+    }
+   
+    public function setTitle($title) {
+        $this->_title = $title;
+    }
+    
+    public function setKeywords($keywords) {
+        $this->_keywords = $keywords;
+    }
+    
 	
 	/**
 	 * Add a PDF for inclusion in the merge with a valid file path. Pages should be formatted: 1,3,6, 12-16. 
@@ -110,6 +137,25 @@ class PDFMerger
 		
 		//output operations
 		$mode = $this->_switchmode($outputmode);
+        
+        
+        // set metadata, if any
+        if (isset($this->_author)) {
+            $fpdi->SetAuthor($this->_author, true);
+        }
+        if (isset($this->_creator)) {
+            $fpdi->SetCreator($this->_creator, true);
+        }
+        if (isset($this->_subject)) {
+            $fpdi->SetSubject($this->_subject, true);
+        }
+        if (isset($this->_title)) {
+            $fpdi->SetTitle($this->_title, true);
+        }
+        if (isset($this->_keywords)) {
+            $fpdi->SetKeywords($this->_keywords, true);
+        }
+        
 		
 		if($mode == 'S')
 		{
