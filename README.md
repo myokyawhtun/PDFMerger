@@ -33,3 +33,5 @@ $pdf->merge('download', 'samplepdfs/test.pdf'); // force download
 
 // REPLACE 'file' WITH 'browser', 'download', 'string', or 'file' for output options
 ```
+
+[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZER25EBAD9P6E)
