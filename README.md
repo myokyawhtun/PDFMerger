@@ -2,12 +2,19 @@
 
 PDFMerger created by Jarrod Nettles December 2009 jarrod@squarecrow.com
 
-- Uses FPDI 1.3.1 from Setasign
-- Uses FPDF 1.6 by Olivier Plathey with FPDF_TPL extension 1.1.3 by Setasign
+Updated by Vasiliy Zaytsev February 2016 vasiliy.zaytsev@ffwagency.com
+
+- Uses tcpdf 6.2.12 by Nicola Asuni
+- Uses patched tcpdi_parser 1.0 by Paul Nicholls with own TCPdiParserException
+- Uses TCPDI 1.0 by Paul Nicholls with FPDF_TPL extension 1.2.3 by Setasign
 
 ## PHP 5 Compatible
 
 I have made some changes in original codes to make PHPMerger compatible for PHP 5
+
+## Support of PDF 1.5 and PDF 1.6
+
+FPDF and FPDI libraries replaced by TCPDF with TCPDI extension and parser.
 
 ### Example Usage
 ```php
@@ -22,7 +29,9 @@ $pdf->addPDF('samplepdfs/three.pdf', 'all');
 
 $pdf->merge('file', 'samplepdfs/TEST2.pdf'); // generate the file
 
-$pdf->merge('download', 'samplepdfs/test.pdf'); // force download 
+$pdf->merge('download', 'samplepdfs/test.pdf'); // force download
 
 // REPLACE 'file' WITH 'browser', 'download', 'string', or 'file' for output options
 ```
+
+[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZER25EBAD9P6E)
