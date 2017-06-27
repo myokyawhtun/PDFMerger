@@ -26,6 +26,10 @@ $pdf->addPDF('samplepdfs/one.pdf', '1, 3, 4');
 $pdf->addPDF('samplepdfs/two.pdf', '1-2');
 $pdf->addPDF('samplepdfs/three.pdf', 'all');
 
+$pdf->setAuthor('sample author');
+$pdf->setCreator('a sample creator');
+$pdf->setSubject('Merged Attachments');
+$pdf->setKeywords('some sample keywords');
 
 $pdf->merge('file', 'samplepdfs/TEST2.pdf'); // generate the file
 

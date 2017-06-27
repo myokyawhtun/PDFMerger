@@ -35,6 +35,101 @@
 class PDFMerger
 {
 	private $_files;	//['form.pdf']  ["1,2,4, 5-19"]
+    private $_author;
+    private $_creator;
+    private $_subject;
+    private $_title;
+    private $_keywords;
+
+    /**
+     * @return string
+     */
+    public function getAuthor()
+    {
+        return $this->_author;
+    }
+
+    /**
+     * @param string $author
+     * @return PDFMerger
+     */
+    public function setAuthor($author)
+    {
+        $this->_author = $author;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCreator()
+    {
+        return $this->_creator;
+    }
+
+    /**
+     * @param string $creator
+     * @return PDFMerger
+     */
+    public function setCreator($creator)
+    {
+        $this->_creator = $creator;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSubject()
+    {
+        return $this->_subject;
+    }
+
+    /**
+     * @param string $subject
+     * @return PDFMerger
+     */
+    public function setSubject($subject)
+    {
+        $this->_subject = $subject;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->_title;
+    }
+
+    /**
+     * @param string $title
+     * @return PDFMerger
+     */
+    public function setTitle($title)
+    {
+        $this->_title = $title;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getKeywords()
+    {
+        return $this->_keywords;
+    }
+
+    /**
+     * @param string $keywords
+     * @return PDFMerger
+     */
+    public function setKeywords($keywords)
+    {
+        $this->_keywords = $keywords;
+        return $this;
+    }
 
 	public function __construct()
 	{
@@ -118,6 +213,22 @@ class PDFMerger
 				}
 			}
 		}
+
+        // set metadata, if any
+        if (isset($this->_author))
+            $fpdi->SetAuthor($this->_author);
+
+		if (isset($this->_creator))
+            $fpdi->SetCreator($this->_creator);
+
+        if (isset($this->_subject))
+            $fpdi->SetSubject($this->_subject);
+
+        if (isset($this->_title))
+            $fpdi->SetTitle($this->_title);
+
+        if (isset($this->_keywords))
+            $fpdi->SetKeywords($this->_keywords);
 
 		//output operations
 		$mode = $this->_switchmode($outputmode);
