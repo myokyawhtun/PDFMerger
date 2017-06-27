@@ -35,6 +35,9 @@
 class PDFMerger
 {
 	private $_files;	//['form.pdf']  ["1,2,4, 5-19"]
+
+    private $_temp_filenames = [];
+
     private $_author;
     private $_creator;
     private $_subject;
@@ -136,6 +139,42 @@ class PDFMerger
 		require_once('tcpdf/tcpdf.php');
 		require_once('tcpdf/tcpdi.php');
 	}
+
+    public function __destruct()
+    {
+        $this->cleanTempFiles();
+    }
+
+    /**
+     * Add a PDF as a string for inclusion in the merge. Pages should be formatted: 1,3,6, 12-16.
+     * @param string $pdfString
+     * @param string $pages
+     * @return PDFMerger
+     * @throws Exception
+     */
+    public function addPdfString($pdfString, $pages = 'all')
+    {
+        $tempName = tempnam(sys_get_temp_dir(), 'PDFMerger');
+
+        if (@file_put_contents($tempName, $pdfString) === false)
+            throw new Exception("Unable to create temporary file");
+
+        $this->_temp_filenames[] = $tempName;
+
+        return $this->addPDF($tempName, $pages);
+    }
+
+    /**
+     * Delete the temporary files created for the merge
+     * @return void
+     */
+    public function cleanTempFiles()
+    {
+        foreach ($this->_temp_filenames as $tempFile)
+            @unlink($tempFile);
+
+        $this->_temp_filenames = [];
+    }
 
     /**
      * Add a PDF for inclusion in the merge with a valid file path. Pages should be formatted: 1,3,6, 12-16.
