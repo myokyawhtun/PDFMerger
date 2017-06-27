@@ -35,24 +35,206 @@
 class PDFMerger
 {
 	private $_files;	//['form.pdf']  ["1,2,4, 5-19"]
-	private $_fpdi;
 
-	/**
-	 * Merge PDFs.
-	 * @return void
-	 */
+    private $_temp_filenames = [];
+
+    private $_author;
+    private $_creator;
+    private $_subject;
+    private $_title;
+    private $_keywords;
+
+    private $_zoom = 100;
+    private $_page_layout = 'OneColumn';
+    private $_display_mode = 'UseNone';
+
+    /**
+     * @return float
+     */
+    public function getZoom()
+    {
+        return $this->_zoom;
+    }
+
+    /**
+     * @param float $zoom page zoom (1.0 - 100.0) Default: 100
+     */
+    public function setZoom($zoom)
+    {
+        $this->_zoom = $zoom;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPageLayout()
+    {
+        return $this->_page_layout;
+    }
+
+    /**
+     * @param string $page_layout Possible values: SinglePage, OneColumn, TwoColumnLeft, TwoColumnRight, TwoPageLeft, TwoPageRight. Default: OneColumn. For more info see SetDisplayMode() method in TCPDF class
+     */
+    public function setPageLayout($page_layout)
+    {
+        $this->_page_layout = $page_layout;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDisplayMode()
+    {
+        return $this->_display_mode;
+    }
+
+    /**
+     * @param string $display_mode Possible values: UseNone, UseOutlines, UseThumbs, FullScreen, UseOC, UseAttachments. Default: UseNone. For more info see SetDisplayMode() method in TCPDF class
+     */
+    public function setDisplayMode($display_mode)
+    {
+        $this->_display_mode = $display_mode;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAuthor()
+    {
+        return $this->_author;
+    }
+
+    /**
+     * @param string $author
+     * @return PDFMerger
+     */
+    public function setAuthor($author)
+    {
+        $this->_author = $author;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCreator()
+    {
+        return $this->_creator;
+    }
+
+    /**
+     * @param string $creator
+     * @return PDFMerger
+     */
+    public function setCreator($creator)
+    {
+        $this->_creator = $creator;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSubject()
+    {
+        return $this->_subject;
+    }
+
+    /**
+     * @param string $subject
+     * @return PDFMerger
+     */
+    public function setSubject($subject)
+    {
+        $this->_subject = $subject;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->_title;
+    }
+
+    /**
+     * @param string $title
+     * @return PDFMerger
+     */
+    public function setTitle($title)
+    {
+        $this->_title = $title;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getKeywords()
+    {
+        return $this->_keywords;
+    }
+
+    /**
+     * @param string $keywords
+     * @return PDFMerger
+     */
+    public function setKeywords($keywords)
+    {
+        $this->_keywords = $keywords;
+        return $this;
+    }
+
 	public function __construct()
 	{
 		require_once('tcpdf/tcpdf.php');
 		require_once('tcpdf/tcpdi.php');
 	}
 
-	/**
-	 * Add a PDF for inclusion in the merge with a valid file path. Pages should be formatted: 1,3,6, 12-16.
-	 * @param $filepath
-	 * @param $pages
-	 * @return void
-	 */
+    public function __destruct()
+    {
+        $this->cleanTempFiles();
+    }
+
+    /**
+     * Add a PDF as a string for inclusion in the merge. Pages should be formatted: 1,3,6, 12-16.
+     * @param string $pdfString
+     * @param string $pages
+     * @return PDFMerger
+     * @throws Exception
+     */
+    public function addPdfString($pdfString, $pages = 'all')
+    {
+        $tempName = tempnam(sys_get_temp_dir(), 'PDFMerger');
+
+        if (@file_put_contents($tempName, $pdfString) === false)
+            throw new Exception("Unable to create temporary file");
+
+        $this->_temp_filenames[] = $tempName;
+
+        return $this->addPDF($tempName, $pages);
+    }
+
+    /**
+     * Delete the temporary files created for the merge
+     * @return void
+     */
+    public function cleanTempFiles()
+    {
+        foreach ($this->_temp_filenames as $tempFile)
+            @unlink($tempFile);
+
+        $this->_temp_filenames = [];
+    }
+
+    /**
+     * Add a PDF for inclusion in the merge with a valid file path. Pages should be formatted: 1,3,6, 12-16.
+     * @param $filepath
+     * @param string $pages
+     * @return PDFMerger
+     * @throws exception
+     */
 	public function addPDF($filepath, $pages = 'all')
 	{
 		if(file_exists($filepath))
@@ -72,12 +254,14 @@ class PDFMerger
 		return $this;
 	}
 
-	/**
-	 * Merges your provided PDFs and outputs to specified location.
-	 * @param $outputmode
-	 * @param $outputname
-	 * @return PDF
-	 */
+    /**
+     * Merges your provided PDFs and outputs to specified location.
+     * @param string $outputmode
+     * @param string $outputpath
+     * @return string|boolean
+     * @throws exception
+     * @internal param $outputname
+     */
 	public function merge($outputmode = 'browser', $outputpath = 'newfile.pdf')
 	{
 		if(!isset($this->_files) || !is_array($this->_files)): throw new exception("No PDFs to merge."); endif;
@@ -121,6 +305,24 @@ class PDFMerger
 			}
 		}
 
+        // set metadata, if any
+        if (isset($this->_author))
+            $fpdi->SetAuthor($this->_author);
+
+		if (isset($this->_creator))
+            $fpdi->SetCreator($this->_creator);
+
+        if (isset($this->_subject))
+            $fpdi->SetSubject($this->_subject);
+
+        if (isset($this->_title))
+            $fpdi->SetTitle($this->_title);
+
+        if (isset($this->_keywords))
+            $fpdi->SetKeywords($this->_keywords);
+
+        $fpdi->SetDisplayMode($this->_zoom, $this->_page_layout, $this->_display_mode);
+
 		//output operations
 		$mode = $this->_switchmode($outputmode);
 
@@ -142,7 +344,6 @@ class PDFMerger
 			else
 			{
 				throw new exception("Error outputting PDF to '$outputmode'.");
-				return false;
 			}
 		}
 
@@ -152,7 +353,7 @@ class PDFMerger
 	/**
 	 * FPDI uses single characters for specifying the output location. Change our more descriptive string into proper format.
 	 * @param $mode
-	 * @return Character
+	 * @return string
 	 */
 	private function _switchmode($mode)
 	{
@@ -160,31 +361,28 @@ class PDFMerger
 		{
 			case 'download':
 				return 'D';
-				break;
 			case 'browser':
 				return 'I';
-				break;
 			case 'file':
 				return 'F';
-				break;
 			case 'string':
 				return 'S';
-				break;
 			default:
 				return 'I';
-				break;
 		}
 	}
 
-	/**
-	 * Takes our provided pages in the form of 1,3,4,16-50 and creates an array of all pages
-	 * @param $pages
-	 * @return unknown_type
-	 */
+    /**
+     * Takes our provided pages in the form of 1,3,4,16-50 and creates an array of all pages
+     * @param $pages
+     * @return array
+     * @throws exception
+     */
 	private function _rewritepages($pages)
 	{
 		$pages = str_replace(' ', '', $pages);
 		$part = explode(',', $pages);
+		$newpages = [];
 
 		//parse hyphens
 		foreach($part as $i)
@@ -196,7 +394,8 @@ class PDFMerger
 				$x = $ind[0]; //start page
 				$y = $ind[1]; //end page
 
-				if($x > $y): throw new exception("Starting page, '$x' is greater than ending page '$y'."); return false; endif;
+				if ($x > $y)
+				    throw new exception("Starting page, '$x' is greater than ending page '$y'.");
 
 				//add middle pages
 				while($x <= $y): $newpages[] = (int) $x; $x++; endwhile;
