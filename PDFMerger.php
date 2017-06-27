@@ -35,24 +35,20 @@
 class PDFMerger
 {
 	private $_files;	//['form.pdf']  ["1,2,4, 5-19"]
-	private $_fpdi;
 
-	/**
-	 * Merge PDFs.
-	 * @return void
-	 */
 	public function __construct()
 	{
 		require_once('tcpdf/tcpdf.php');
 		require_once('tcpdf/tcpdi.php');
 	}
 
-	/**
-	 * Add a PDF for inclusion in the merge with a valid file path. Pages should be formatted: 1,3,6, 12-16.
-	 * @param $filepath
-	 * @param $pages
-	 * @return void
-	 */
+    /**
+     * Add a PDF for inclusion in the merge with a valid file path. Pages should be formatted: 1,3,6, 12-16.
+     * @param $filepath
+     * @param string $pages
+     * @return PDFMerger
+     * @throws exception
+     */
 	public function addPDF($filepath, $pages = 'all')
 	{
 		if(file_exists($filepath))
@@ -72,12 +68,14 @@ class PDFMerger
 		return $this;
 	}
 
-	/**
-	 * Merges your provided PDFs and outputs to specified location.
-	 * @param $outputmode
-	 * @param $outputname
-	 * @return PDF
-	 */
+    /**
+     * Merges your provided PDFs and outputs to specified location.
+     * @param string $outputmode
+     * @param string $outputpath
+     * @return string|boolean
+     * @throws exception
+     * @internal param $outputname
+     */
 	public function merge($outputmode = 'browser', $outputpath = 'newfile.pdf')
 	{
 		if(!isset($this->_files) || !is_array($this->_files)): throw new exception("No PDFs to merge."); endif;
@@ -142,7 +140,6 @@ class PDFMerger
 			else
 			{
 				throw new exception("Error outputting PDF to '$outputmode'.");
-				return false;
 			}
 		}
 
@@ -152,7 +149,7 @@ class PDFMerger
 	/**
 	 * FPDI uses single characters for specifying the output location. Change our more descriptive string into proper format.
 	 * @param $mode
-	 * @return Character
+	 * @return string
 	 */
 	private function _switchmode($mode)
 	{
@@ -160,31 +157,28 @@ class PDFMerger
 		{
 			case 'download':
 				return 'D';
-				break;
 			case 'browser':
 				return 'I';
-				break;
 			case 'file':
 				return 'F';
-				break;
 			case 'string':
 				return 'S';
-				break;
 			default:
 				return 'I';
-				break;
 		}
 	}
 
-	/**
-	 * Takes our provided pages in the form of 1,3,4,16-50 and creates an array of all pages
-	 * @param $pages
-	 * @return unknown_type
-	 */
+    /**
+     * Takes our provided pages in the form of 1,3,4,16-50 and creates an array of all pages
+     * @param $pages
+     * @return array
+     * @throws exception
+     */
 	private function _rewritepages($pages)
 	{
 		$pages = str_replace(' ', '', $pages);
 		$part = explode(',', $pages);
+		$newpages = [];
 
 		//parse hyphens
 		foreach($part as $i)
@@ -196,7 +190,8 @@ class PDFMerger
 				$x = $ind[0]; //start page
 				$y = $ind[1]; //end page
 
-				if($x > $y): throw new exception("Starting page, '$x' is greater than ending page '$y'."); return false; endif;
+				if ($x > $y)
+				    throw new exception("Starting page, '$x' is greater than ending page '$y'.");
 
 				//add middle pages
 				while($x <= $y): $newpages[] = (int) $x; $x++; endwhile;
