@@ -44,6 +44,58 @@ class PDFMerger
     private $_title;
     private $_keywords;
 
+    private $_zoom = 100;
+    private $_page_layout = 'OneColumn';
+    private $_display_mode = 'UseNone';
+
+    /**
+     * @return float
+     */
+    public function getZoom()
+    {
+        return $this->_zoom;
+    }
+
+    /**
+     * @param float $zoom page zoom (1.0 - 100.0) Default: 100
+     */
+    public function setZoom($zoom)
+    {
+        $this->_zoom = $zoom;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPageLayout()
+    {
+        return $this->_page_layout;
+    }
+
+    /**
+     * @param string $page_layout Possible values: SinglePage, OneColumn, TwoColumnLeft, TwoColumnRight, TwoPageLeft, TwoPageRight. Default: OneColumn. For more info see SetDisplayMode() method in TCPDF class
+     */
+    public function setPageLayout($page_layout)
+    {
+        $this->_page_layout = $page_layout;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDisplayMode()
+    {
+        return $this->_display_mode;
+    }
+
+    /**
+     * @param string $display_mode Possible values: UseNone, UseOutlines, UseThumbs, FullScreen, UseOC, UseAttachments. Default: UseNone. For more info see SetDisplayMode() method in TCPDF class
+     */
+    public function setDisplayMode($display_mode)
+    {
+        $this->_display_mode = $display_mode;
+    }
+
     /**
      * @return string
      */
@@ -268,6 +320,8 @@ class PDFMerger
 
         if (isset($this->_keywords))
             $fpdi->SetKeywords($this->_keywords);
+
+        $fpdi->SetDisplayMode($this->_zoom, $this->_page_layout, $this->_display_mode);
 
 		//output operations
 		$mode = $this->_switchmode($outputmode);
