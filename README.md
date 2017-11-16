@@ -1,4 +1,4 @@
-#PDFMerger for PHP (PHP 5 Compatible)
+#PDFMerger for PHP (PHP 5 and above up to PHP 7.1 Compatible)
 
 PDFMerger created by Jarrod Nettles December 2009 jarrod@squarecrow.com
 
@@ -10,7 +10,11 @@ Updated by Vasiliy Zaytsev February 2016 vasiliy.zaytsev@ffwagency.com
 
 ## PHP 5 Compatible
 
-I have made some changes in original codes to make PHPMerger compatible for PHP 5
+I have made some changes in original codes to make PHPMerger compatible for PHP 5. 
+
+- Update
+
+I tested with PHP 7.1 on my local machine and it still works.
 
 ## Support of PDF 1.5 and PDF 1.6
 
