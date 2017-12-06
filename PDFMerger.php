@@ -83,10 +83,10 @@ class PDFMerger
 	public function merge($outputmode = 'browser', $outputpath = 'newfile.pdf')
 	{
 		if(!isset($this->_files) || !is_array($this->_files)): throw new exception("No PDFs to merge."); endif;
-
-    $fpdi = new TCPDI;
-    $fpdi->SetPrintHeader(false);
-    $fpdi->SetPrintFooter(false);
+		
+		$fpdi = new \TCPDI;
+		$fpdi->SetPrintHeader(false);
+		$fpdi->SetPrintFooter(false);
 
 		//merger operations
 		foreach($this->_files as $file)
