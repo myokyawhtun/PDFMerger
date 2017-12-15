@@ -32,6 +32,9 @@
  *  - essentially, it cannot import dynamic content such as form fields, links
  * or page annotations (anything not a part of the page content stream).
  */
+
+namespace matiasiglesias;
+
 class PDFMerger
 {
 	private $_files;	//['form.pdf']  ["1,2,4, 5-19"]
@@ -52,7 +55,7 @@ class PDFMerger
      * @param $filepath
      * @param string $pages
      * @return PDFMerger
-     * @throws Exception
+     * @throws ExceptionÆ
      */
 	public function addPDF($filepath, $pages = 'all')
 	{
