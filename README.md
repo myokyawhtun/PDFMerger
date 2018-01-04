@@ -24,7 +24,9 @@ To install the library add the following line to your composer.json:
 
 ### Example Usage
 ```php
-$pdf = new \PDFMerger();
+use hakimio\PDFMerger;
+
+$pdf = new PDFMerger();
 
 $pdf->addPDF('samplepdfs/one.pdf', '1, 3, 4');
 $pdf->addPDF('samplepdfs/two.pdf', '1-2');
