@@ -32,6 +32,8 @@
  *  - essentially, it cannot import dynamic content such as form fields, links
  * or page annotations (anything not a part of the page content stream).
  */
+namespace PDFMerger;
+
 class PDFMerger
 {
 	private $_files;	//['form.pdf']  ["1,2,4, 5-19"]
@@ -202,14 +204,14 @@ class PDFMerger
      * @param string $pdfString
      * @param string $pages
      * @return PDFMerger
-     * @throws Exception
+     * @throws \Exception
      */
     public function addPdfString($pdfString, $pages = 'all')
     {
         $tempName = tempnam(sys_get_temp_dir(), 'PDFMerger');
 
         if (@file_put_contents($tempName, $pdfString) === false)
-            throw new Exception("Unable to create temporary file");
+            throw new \Exception("Unable to create temporary file");
 
         $this->_temp_filenames[] = $tempName;
 
@@ -233,7 +235,7 @@ class PDFMerger
      * @param $filepath
      * @param string $pages
      * @return PDFMerger
-     * @throws exception
+     * @throws \Exception
      */
 	public function addPDF($filepath, $pages = 'all')
 	{
@@ -248,7 +250,7 @@ class PDFMerger
 		}
 		else
 		{
-			throw new exception("Could not locate PDF on '$filepath'");
+			throw new \Exception("Could not locate PDF on '$filepath'");
 		}
 
 		return $this;
@@ -259,14 +261,15 @@ class PDFMerger
      * @param string $outputmode
      * @param string $outputpath
      * @return string|boolean
-     * @throws exception
+     * @throws \Exception
      * @internal param $outputname
      */
 	public function merge($outputmode = 'browser', $outputpath = 'newfile.pdf')
 	{
-		if(!isset($this->_files) || !is_array($this->_files)): throw new exception("No PDFs to merge."); endif;
+		if(!isset($this->_files) || !is_array($this->_files))
+		    throw new \Exception("No PDFs to merge.");
 
-    $fpdi = new TCPDI;
+    $fpdi = new \TCPDI;
     $fpdi->SetPrintHeader(false);
     $fpdi->SetPrintFooter(false);
 
@@ -295,7 +298,9 @@ class PDFMerger
 			{
 				foreach($filepages as $page)
 				{
-					if(!$template = $fpdi->importPage($page)): throw new exception("Could not load page '$page' in PDF '$filename'. Check that the page exists."); endif;
+					if(!$template = $fpdi->importPage($page))
+					    throw new \Exception("Could not load page '$page' in PDF '$filename'. Check that the page exists.");
+
 					$size = $fpdi->getTemplateSize($template);
 					$orientation = ($size['h'] > $size['w']) ? 'P' : 'L';
 
@@ -343,7 +348,7 @@ class PDFMerger
 			}
 			else
 			{
-				throw new exception("Error outputting PDF to '$outputmode'.");
+				throw new \Exception("Error outputting PDF to '$outputmode'.");
 			}
 		}
 
@@ -376,7 +381,7 @@ class PDFMerger
      * Takes our provided pages in the form of 1,3,4,16-50 and creates an array of all pages
      * @param $pages
      * @return array
-     * @throws exception
+     * @throws \Exception
      */
 	private function _rewritepages($pages)
 	{
@@ -395,7 +400,7 @@ class PDFMerger
 				$y = $ind[1]; //end page
 
 				if ($x > $y)
-				    throw new exception("Starting page, '$x' is greater than ending page '$y'.");
+				    throw new \Exception("Starting page, '$x' is greater than ending page '$y'.");
 
 				//add middle pages
 				while($x <= $y): $newpages[] = (int) $x; $x++; endwhile;

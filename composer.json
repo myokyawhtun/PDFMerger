@@ -1,10 +1,12 @@
 {
-    "name": "vaza18/pdfmerger",
-    "description": "PDFMerger for PHP (PHP5 Compatible) by Jarrod Nettles",
+    "name": "myokyawhtun/pdfmerger",
+    "description": "PDFMerger for PHP",
     "require":{
-    	"php": ">=5.2.0"
+        "php": ">=5.2.0"
     },
     "autoload": {
-      "files": ["PDFMerger.php"]
+        "psr-0": {
+            "PDFMerger": "PDFMerger.php"
+        }
     }
 }
