@@ -32,7 +32,7 @@
  *  - essentially, it cannot import dynamic content such as form fields, links
  * or page annotations (anything not a part of the page content stream).
  */
-namespace PDFMerger;
+namespace hakimio;
 
 class PDFMerger
 {

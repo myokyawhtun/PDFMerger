@@ -20,7 +20,7 @@ FPDF and FPDI libraries replaced by TCPDF with TCPDI extension and parser.
 
 To install the library add the following line to your composer.json:
 
-```"myokyawhtun/pdfmerger": "dev-master"```
+```"hakimio/pdfmerger": "dev-master"```
 
 ### Example Usage
 ```php

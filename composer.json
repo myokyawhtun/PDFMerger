@@ -1,12 +1,12 @@
 {
-    "name": "myokyawhtun/pdfmerger",
+    "name": "hakimio/pdfmerger",
     "description": "PDFMerger for PHP",
     "require":{
         "php": ">=5.2.0"
     },
     "autoload": {
-        "psr-0": {
-            "PDFMerger": ""
+        "psr-4": {
+            "hakimio\\": "src/"
         }
     }
 }
