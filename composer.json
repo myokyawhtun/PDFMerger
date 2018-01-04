@@ -1,9 +1,10 @@
 {
     "name": "hakimio/pdfmerger",
-    "description": "PDFMerger for PHP",
+    "description": "PDF Merger for PHP",
     "require":{
         "php": ">=5.2.0"
     },
+    "minimum-stability":"dev",
     "autoload": {
         "psr-4": {
             "hakimio\\": "src/"
