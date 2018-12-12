@@ -34,6 +34,8 @@
  */
 namespace PDFMerger;
 
+use Exception;
+
 class PDFMerger
 {
 	private $_files;	//['form.pdf']  ["1,2,4, 5-19"]
@@ -61,14 +63,16 @@ class PDFMerger
 		{
 			if(strtolower($pages) != 'all')
 			{
-				$pages = $this->_rewritepages($pages);
+                $fpdi = new \TCPDI();
+                $pageCount = $fpdi->setSourceFile($filepath);
+				$pages = $this->_rewritepages($pages, $pageCount);
 			}
 
 			$this->_files[] = array($filepath, $pages);
 		}
 		else
 		{
-			throw new exception("Could not locate PDF on '$filepath'");
+			throw new Exception("Could not locate PDF on '$filepath'");
 		}
 
 		return $this;
@@ -82,7 +86,7 @@ class PDFMerger
 	 */
 	public function merge($outputmode = 'browser', $outputpath = 'newfile.pdf')
 	{
-		if(!isset($this->_files) || !is_array($this->_files)): throw new exception("No PDFs to merge."); endif;
+		if(!isset($this->_files) || !is_array($this->_files)): throw new Exception("No PDFs to merge."); endif;
 
     $fpdi = new \TCPDI();
     $fpdi->SetPrintHeader(false);
@@ -113,7 +117,7 @@ class PDFMerger
 			{
 				foreach($filepages as $page)
 				{
-					if(!$template = $fpdi->importPage($page)): throw new exception("Could not load page '$page' in PDF '$filename'. Check that the page exists."); endif;
+					if(!$template = $fpdi->importPage($page)): throw new Exception("Could not load page '$page' in PDF '$filename'. Check that the page exists."); endif;
 					$size = $fpdi->getTemplateSize($template);
 					$orientation = ($size['h'] > $size['w']) ? 'P' : 'L';
 
@@ -143,7 +147,7 @@ class PDFMerger
 			}
 			else
 			{
-				throw new exception("Error outputting PDF to '$outputmode'.");
+				throw new Exception("Error outputting PDF to '$outputmode'.");
 				return false;
 			}
 		}
@@ -181,9 +185,11 @@ class PDFMerger
 	/**
 	 * Takes our provided pages in the form of 1,3,4,16-50 and creates an array of all pages
 	 * @param $pages
+     * @param $numPages
+     *
 	 * @return unknown_type
 	 */
-	private function _rewritepages($pages)
+	private function _rewritepages($pages, $numPages)
 	{
 		$pages = str_replace(' ', '', $pages);
 		$part = explode(',', $pages);
@@ -195,21 +201,41 @@ class PDFMerger
 
 			if(count($ind) == 2)
 			{
-				$x = $ind[0]; //start page
-				$y = $ind[1]; //end page
+                $x = $this->adjustForLastPage($ind[0], $numPages); //start page
+                $y = $this->adjustForLastPage($ind[1], $numPages); //end page
 
-				if($x > $y): throw new exception("Starting page, '$x' is greater than ending page '$y'."); return false; endif;
+				if($x > $y): throw new Exception("Starting page, '$x' is greater than ending page '$y'."); return false; endif;
 
 				//add middle pages
 				while($x <= $y): $newpages[] = (int) $x; $x++; endwhile;
 			}
 			else
 			{
-				$newpages[] = (int) $ind[0];
+				$newpages[] = (int) $this->adjustForLastPage($ind[0], $numPages);
 			}
 		}
 
 		return $newpages;
 	}
+
+    private function adjustForLastPage($page, $numPages)
+    {
+        if (is_numeric($page))
+        {
+            return $page;
+        }
+        elseif ($page == 'last')
+        {
+            return $numPages;
+        }
+        else
+        {
+            $var = explode(':', $page);
+            if (count($var) > 2)
+                return $numPages - $var[1];
+        }
+
+        return 0;
+    }
 
 }
