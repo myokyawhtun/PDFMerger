@@ -1385,7 +1385,7 @@ class tcpdi_parser {
      * Get the page rotation by pageno
      *
      * @param integer $pageno
-     * @return array
+     * @return array|bool
      */
     public function getPageRotation($pageno) {
         return $this->_getPageRotation($this->pages[$pageno - 1]);
@@ -1395,7 +1395,7 @@ class tcpdi_parser {
         $obj = $this->getObjectVal($obj);
         if (isset ($obj[1][1]['/Rotate'])) {
             $res = $this->getObjectVal($obj[1][1]['/Rotate']);
-            if ($res[0] == PDF_TYPE_OBJECT)
+            if (is_array($res) && $res[0] == PDF_TYPE_OBJECT)
                 return $res[1];
             return $res;
         } else {
@@ -1403,7 +1403,7 @@ class tcpdi_parser {
                 return false;
             } else {
                 $res = $this->_getPageRotation($obj[1][1]['/Parent']);
-                if ($res[0] == PDF_TYPE_OBJECT)
+                if (is_array($res) && $res[0] == PDF_TYPE_OBJECT)
                     return $res[1];
                 return $res;
             }
