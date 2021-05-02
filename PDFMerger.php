@@ -68,7 +68,7 @@ class PDFMerger
 		}
 		else
 		{
-			throw new exception("Could not locate PDF on '$filepath'");
+			throw new \exception("Could not locate PDF on '$filepath'");
 		}
 
 		return $this;
@@ -84,7 +84,7 @@ class PDFMerger
 	{
 		if(!isset($this->_files) || !is_array($this->_files)): throw new exception("No PDFs to merge."); endif;
 
-    $fpdi = new TCPDI;
+    $fpdi = new \TCPDI;
     $fpdi->SetPrintHeader(false);
     $fpdi->SetPrintFooter(false);
 
