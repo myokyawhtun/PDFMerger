@@ -1,0 +1,30 @@
+{
+    "name": "setasign/tfpdf",
+    "version": "1.31.1",
+    "homepage": "http://fpdf.org/en/script/script92.php",
+    "description": "This class is a modified version of FPDF that adds UTF-8 support. As of version 1.31 it is based on FPDF 1.82. Before it was based on FPDF 1.7.",
+    "type": "library",
+    "keywords": ["pdf", "fpdf", "unicode", "tfpdf"],
+    "license": "LGPL-2.1",
+    "authors": [
+        {
+            "name": "Ian Back"
+        },
+        {
+            "name": "Tycho Veltmeijer",
+            "email": "tfpdf@tychoveltmeijer.nl",
+            "role": "Maintainer"
+        },
+        {
+            "name": "Olivier Plathey",
+            "email": "oliver@fpdf.org",
+            "homepage": "http://fpdf.org/"
+        }
+    ],
+    "autoload": {
+        "classmap": [
+            "tfpdf.php",
+            "font/unifont/ttfonts.php"
+        ]
+    }
+}

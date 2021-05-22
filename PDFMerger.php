@@ -45,8 +45,10 @@ class PDFMerger
 	 */
 	public function __construct()
 	{
-		require_once('tcpdf/tcpdf.php');
-		require_once('tcpdf/tcpdi.php');
+		use tecnickcom\tcpdf;
+		use setasign\Fpdi\Fpdi;
+		use setasign\Fpdi\Tcpdf\Fpdi;
+		require_once('vendor/autoload.php');
 	}
 
 	/**
