@@ -1,6 +1,7 @@
 {
   "name": "hakimio/pdfmerger",
   "description": "PDF Merger for PHP",
+  "version": "1.0.0",
   "require": {
     "php": ">=5.2.0",
     "setasign/fpdf": "^1.8.3",
