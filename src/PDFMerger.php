@@ -4,11 +4,8 @@
  * PDFMerger created in December 2009
  * @author Jarrod Nettles <jarrod@squarecrow.com>
  *
- * Updated by Vasiliy Zaytsev February 2016
- * vasiliy.zaytsev@ffwagency.com
+ * Updated by Tomas Rimkus
  *
- * @version 2.0
- * This version (comparing to 1.0) supports PDF 1.5 and PDF 1.6.
  *
  * Class for easily merging PDFs (or specific pages of PDFs) together into one.
  * Output to a file, browser, download, or return as a string. Unfortunately,
@@ -19,18 +16,6 @@
  * Note that your PDFs are merged in the order that you provide them using the
  * addPDF function, same as the pages. If you put pages 12-14 before 1-5 then
  * 12-15 will be placed first in the output.
- *
- * @uses tcpdf 6.2.12 by Nicola Asuni
- * @link https://github.com/tecnickcom/TCPDF/tree/master official clone of lib
- * @uses tcpdi_parser 1.0 by Paul Nicholls, patched by own TCPdiParserException
- * @link https://github.com/pauln/tcpdi_parser source of tcpdi_parser.php
- * @uses TCPDI 1.0 by Paul Nicholls with FPDF_TPL extension 1.2.3 by Setasign
- * @link https://github.com/pauln/tcpdi tcpdi.php
- *
- * All of these packages are free and open source software, bundled with this
- * class for ease of use. PDFMerger has all the limitations of the FPDI package
- *  - essentially, it cannot import dynamic content such as form fields, links
- * or page annotations (anything not a part of the page content stream).
  */
 
 namespace hakimio;
@@ -260,9 +245,9 @@ class PDFMerger
                 for ($i = 1; $i <= $count; $i++) {
                     $template = $fpdi->importPage($i);
                     $size = $fpdi->getTemplateSize($template);
-                    $orientation = ($size['h'] > $size['w']) ? 'P' : 'L';
+                    $orientation = ($size['height'] > $size['width']) ? 'P' : 'L';
 
-                    $fpdi->AddPage($orientation, array($size['w'], $size['h']));
+                    $fpdi->AddPage($orientation, array($size['width'], $size['height']));
                     $fpdi->useTemplate($template);
                 }
             } else {
@@ -271,9 +256,9 @@ class PDFMerger
                         throw new Exception("Could not load page '$page' in PDF '$filename'. Check that the page exists.");
 
                     $size = $fpdi->getTemplateSize($template);
-                    $orientation = ($size['h'] > $size['w']) ? 'P' : 'L';
+                    $orientation = ($size['height'] > $size['width']) ? 'P' : 'L';
 
-                    $fpdi->AddPage($orientation, array($size['w'], $size['h']));
+                    $fpdi->AddPage($orientation, array($size['width'], $size['height']));
                     $fpdi->useTemplate($template);
                 }
             }
@@ -301,12 +286,12 @@ class PDFMerger
         $mode = $this->_switchmode($outputmode);
 
         if ($mode == 'S') {
-            return $fpdi->Output($outputpath, 'S');
+            return $fpdi->Output( 'S', $outputpath);
         } else if ($mode == 'F') {
-            $fpdi->Output($outputpath, $mode);
+            $fpdi->Output($mode, $outputpath);
             return true;
         } else {
-            if ($fpdi->Output($outputpath, $mode) == '') {
+            if ($fpdi->Output($mode, $outputpath) == '') {
                 return true;
             } else {
                 throw new Exception("Error outputting PDF to '$outputmode'.");
