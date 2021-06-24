@@ -1,5 +1,6 @@
 <?php
-include 'PDFMerger.php';
+
+use hakimio\PDFMerger;
 
 $pdf = new PDFMerger;
 
@@ -11,6 +12,3 @@ $pdf->addPDF('samplepdfs/one.pdf', '1, 3, 4')
     ->setSubject('Merged Attachments')
     ->setKeywords('some sample keywords')
 	->merge('file', 'samplepdfs/TEST2.pdf');
-	
-	//REPLACE 'file' WITH 'browser', 'download', 'string', or 'file' for output options
-	//You do not need to give a file path for browser, string, or download - just the name.
