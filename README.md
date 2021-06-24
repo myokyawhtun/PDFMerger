@@ -1,4 +1,4 @@
-#PDFMerger for PHP
+# PDFMerger for PHP
 
 PDFMerger using `setasign\fpdi`. Compatible with PHP 7+.
 
