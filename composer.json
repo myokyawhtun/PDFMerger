@@ -7,7 +7,6 @@
     "setasign/fpdf": "^1.8.3",
     "setasign/fpdi": "^v2.3.6"
   },
-  "minimum-stability": "dev",
   "autoload": {
     "psr-4": {
       "hakimio\\": "src/"
