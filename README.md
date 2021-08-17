@@ -34,6 +34,20 @@ $pdf->addPDF('b.pdf');
 $pdf->merge('download','merged.pdf');
 ```
 
+### Composer
+
+PDFMerger is available via [Composer/Packagist](https://packagist.org/packages/myokyawhtun/pdfmerger), add this line to your `composer.json` file:
+
+```json
+"myokyawhtun/pdfmerger": "dev-master"
+```
+
+or
+
+```sh
+composer require myokyawhtun/pdfmerger
+```
+
 ### Example Usage
 ```php
 include 'PDFMerger.php';
