@@ -888,7 +888,7 @@ class PDF417 {
 							// search new sub-mode
 							if (($s != $submode) AND (($k = array_search($chval, $this->textsubmodes[$s])) !== false)) {
 								// $s is the new submode
-								if (((($i + 1) == $codelen) OR ((($i + 1) < $codelen) AND (array_search(ord($code{($i + 1)}), $this->textsubmodes[$submode]) !== false))) AND (($s == 3) OR (($s == 0) AND ($submode == 1)))) {
+								if (((($i + 1) == $codelen) OR ((($i + 1) < $codelen) AND (array_search(ord($code[($i + 1)]), $this->textsubmodes[$submode]) !== false))) AND (($s == 3) OR (($s == 0) AND ($submode == 1)))) {
 									// shift (temporary change only for this char)
 									if ($s == 3) {
 										// shift to puntuaction

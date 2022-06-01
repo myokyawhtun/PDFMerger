@@ -805,7 +805,7 @@ class tcpdi_parser {
             }
             case '<':   // \x3C LESS-THAN SIGN
             case '>': { // \x3E GREATER-THAN SIGN
-                if (isset($data{($offset + 1)}) AND ($data{($offset + 1)} == $char)) {
+                if (isset($data[($offset + 1)]) AND ($data[($offset + 1)] == $char)) {
                     // dictionary object
                     $objtype = PDF_TYPE_DICTIONARY;
                     if ($char == '<') {
@@ -1403,7 +1403,7 @@ class tcpdi_parser {
                 return false;
             } else {
                 $res = $this->_getPageRotation($obj[1][1]['/Parent']);
-                if (is_array($res) && $res[0] == PDF_TYPE_OBJECT)
+                if ($res && $res[0] == PDF_TYPE_OBJECT)
                     return $res[1];
                 return $res;
             }
